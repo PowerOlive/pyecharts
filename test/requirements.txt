@@ -1,6 +1,10 @@
-nose
+nose2
 codecov
 coverage
-jupyter
 flake8
 mccabe
+Pillow
+pytest
+pytest-cov
+numpy
+pandas

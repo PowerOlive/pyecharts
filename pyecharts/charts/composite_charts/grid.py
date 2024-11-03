@@ -3,6 +3,7 @@ import copy
 from ... import options as opts
 from ... import types
 from ...globals import ThemeType
+from ..basic_charts.radar import Radar
 from ..chart import Base, Chart, RectChart
 
 
@@ -13,8 +14,12 @@ class Grid(Base):
     and scatter chart (bubble chart) can be drawn in grid.
     """
 
-    def __init__(self, init_opts: types.Init = opts.InitOpts()):
-        super().__init__(init_opts=init_opts)
+    def __init__(
+        self,
+        init_opts: types.Init = opts.InitOpts(),
+        render_opts: types.RenderInit = opts.RenderOpts(),
+    ):
+        super().__init__(init_opts=init_opts, render_opts=render_opts)
         self.options: types.Optional[dict] = None
         self._axis_index: int = 0
         self._grow_grid_index: int = 0
@@ -42,6 +47,29 @@ class Grid(Base):
                 for s in self.options.get("series"):
                     s.update(xAxisIndex=self._axis_index, yAxisIndex=self._axis_index)
 
+        # visualMap 配置添加
+        visual_map = chart.options.get("visualMap")
+        if visual_map is not None:
+            if isinstance(self.options.get("visualMap"), opts.VisualMapOpts):
+                self.options.update(visualMap=[self.options.get("visualMap")])
+            else:
+                if self.options.get("visualMap") is None:
+                    self.options.update(visualMap=[visual_map])
+                else:
+                    self.options.get("visualMap").extend([visual_map])
+
+        # dataZoom 配置添加
+        data_zoom = chart.options.get("dataZoom")
+        if data_zoom is not None:
+            if isinstance(self.options.get("dataZoom"), opts.DataZoomOpts):
+                self.options.update(dataZoom=[self.options.get("dataZoom")])
+            else:
+                if self.options.get("dataZoom") is None:
+                    self.options.update(dataZoom=[data_zoom])
+                else:
+                    self.options.get("dataZoom").extend([data_zoom])
+
+        # title 配置添加
         title = chart.options.get("title", opts.TitleOpts().opts)
         if isinstance(title, opts.TitleOpts):
             title = title.opts
@@ -75,6 +103,8 @@ class Grid(Base):
             if isinstance(chart, RectChart):
                 self.options.get("xAxis").extend(chart.options.get("xAxis"))
                 self.options.get("yAxis").extend(chart.options.get("yAxis"))
+            if isinstance(chart, Radar):
+                self.options.get("radar").extend(chart.options.get("radar"))
 
         self.options.get("grid").append(grid_opts)
         self._axis_index += 1

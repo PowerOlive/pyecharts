@@ -6,11 +6,8 @@
     <em>Python ❤️ ECharts = pyecharts</em>
 </p>
 <p align="center">
-    <a href="https://travis-ci.org/pyecharts/pyecharts">
-        <img src="https://travis-ci.org/pyecharts/pyecharts.svg?branch=master" alt="Travis Build Status">
-    </a>
-    <a href="https://ci.appveyor.com/project/chenjiandongx/pyecharts">
-        <img src="https://ci.appveyor.com/api/projects/status/81cbsfjpfryv1cl8/branch/master?svg=true" alt="Appveyor Build Status">
+    <a href="https://github.com/pyecharts/pyecharts/actions">
+        <img src="https://github.com/pyecharts/pyecharts/actions/workflows/python-app.yml/badge.svg" alt="Github Actions Status">
     </a>
     <a href="https://codecov.io/gh/pyecharts/pyecharts">
         <img src="https://codecov.io/gh/pyecharts/pyecharts/branch/master/graph/badge.svg" alt="Codecov">
@@ -44,7 +41,7 @@
 
 * 简洁的 API 设计，使用如丝滑般流畅，支持链式调用
 * 囊括了 30+ 种常见图表，应有尽有
-* 支持主流 Notebook 环境，Jupyter Notebook 和 JupyterLab
+* 支持主流 Notebook 环境，Jupyter Notebook、JupyterLab 和 [marimo](https://github.com/marimo-team/marimo)
 * 可轻松集成至 Flask，Sanic，Django 等主流 Web 框架
 * 高度灵活的配置项，可轻松搭配出精美的图表
 * 详细的文档和示例，帮助开发者更快的上手项目
@@ -56,15 +53,21 @@ v0.5.x 和 V1 间不兼容，V1 是一个全新的版本，详见 [ISSUE#892](ht
 
 ### V0.5.x
 
-> 支持 Python2.7，3.4+
+> 支持 Python 2.7，3.4+
 
 经开发团队决定，0.5.x 版本将不再进行维护，0.5.x 版本代码位于 *05x* 分支，文档位于 [05x-docs.pyecharts.org](http://05x-docs.pyecharts.org)。
 
 ### V1
 
-> 仅支持 Python3.6+
+> 仅支持 Python 3.7+
 
 新版本系列将从 v1.0.0 开始，文档位于 [pyecharts.org](https://pyecharts.org)；示例位于 [gallery.pyecharts.org](https://gallery.pyecharts.org)
+
+### V2
+
+> 仅支持 Python 3.7+
+
+新版本基于 Echarts 5.4.1+ 进行渲染, 文档和示例位置与 V1 相同
 
 ## 🔰 安装
 
@@ -233,16 +236,6 @@ pyecharts 主要由以下几位开发者开发维护
 * [@sunhailin-Leo](https://github.com/sunhailin-Leo)
 
 更多贡献者信息可以访问 [pyecharts/graphs/contributors](https://github.com/pyecharts/pyecharts/graphs/contributors)
-
-## 💌 捐赠
-
-开发和维护 pyecharts 花费了我巨大的心力，如果你觉得项目帮助到您，请认真考虑请作者喝一杯咖啡 😄
-
-| 微信二维码 | 支付宝二维码 |
-| -------- | ---------- |
-| <img src="https://assets.pyecharts.org/images/wechat-code.png" width=220px alt="wechat-code"> | <img src="https://assets.pyecharts.org/images/alipay-code.png" width=220px alt="alipay-code"> |
-
-如果其他开发者帮助到了您，也可以请他们喝咖啡 [捐赠通道](http://pyecharts.org/#/zh-cn/donate)
 
 ## 💡 贡献
 

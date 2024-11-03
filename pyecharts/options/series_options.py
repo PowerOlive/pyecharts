@@ -16,6 +16,30 @@ class BasicOpts:
         return self.opts.get(key)
 
 
+class AnimationOpts(BasicOpts):
+    def __init__(
+        self,
+        animation: bool = True,
+        animation_threshold: Numeric = 2000,
+        animation_duration: Union[Numeric, JSFunc] = 1000,
+        animation_easing: Union[str] = "cubicOut",
+        animation_delay: Union[Numeric, JSFunc] = 0,
+        animation_duration_update: Union[Numeric, JSFunc] = 300,
+        animation_easing_update: Union[str] = "cubicOut",
+        animation_delay_update: Union[Numeric, JSFunc] = 0,
+    ):
+        self.opts: dict = {
+            "animation": animation,
+            "animationThreshold": animation_threshold,
+            "animationDuration": animation_duration,
+            "animationEasing": animation_easing,
+            "animationDelay": animation_delay,
+            "animationDurationUpdate": animation_duration_update,
+            "animationEasingUpdate": animation_easing_update,
+            "animationDelayUpdate": animation_delay_update,
+        }
+
+
 class ItemStyleOpts(BasicOpts):
     def __init__(
         self,
@@ -25,6 +49,7 @@ class ItemStyleOpts(BasicOpts):
         border_color0: Optional[str] = None,
         border_width: Optional[Numeric] = None,
         border_type: Optional[str] = None,
+        border_radius: Optional[Numeric] = None,
         opacity: Optional[Numeric] = None,
         area_color: Optional[str] = None,
     ):
@@ -35,6 +60,7 @@ class ItemStyleOpts(BasicOpts):
             "borderColor0": border_color0,
             "borderWidth": border_width,
             "borderType": border_type,
+            "borderRadius": border_radius,
             "opacity": opacity,
             "areaColor": area_color,
         }
@@ -88,7 +114,7 @@ class LabelOpts(BasicOpts):
     def __init__(
         self,
         is_show: bool = True,
-        position: Union[str, Sequence] = "top",
+        position: Optional[Union[str, Sequence]] = None,
         color: Optional[str] = None,
         distance: Union[Numeric, Sequence, None] = None,
         font_size: Optional[Numeric] = None,
@@ -105,7 +131,18 @@ class LabelOpts(BasicOpts):
         border_color: Optional[str] = None,
         border_width: Optional[Numeric] = None,
         border_radius: Optional[Numeric] = None,
+        padding: Union[Numeric, Sequence[Numeric], None] = None,
+        text_width: Optional[Numeric] = None,
+        text_height: Optional[Numeric] = None,
+        text_border_color: Optional[str] = None,
+        text_border_width: Optional[Numeric] = None,
+        text_shadow_color: Optional[str] = None,
+        text_shadow_blur: Optional[Numeric] = None,
+        text_shadow_offset_x: Optional[Numeric] = None,
+        text_shadow_offset_y: Optional[Numeric] = None,
+        overflow: Optional[str] = None,
         rich: Optional[dict] = None,
+        is_value_animation: bool = False,
     ):
         self.opts: dict = {
             "show": is_show,
@@ -126,7 +163,18 @@ class LabelOpts(BasicOpts):
             "borderColor": border_color,
             "borderWidth": border_width,
             "borderRadius": border_radius,
+            "padding": padding,
+            "width": text_width,
+            "height": text_height,
+            "textBorderColor": text_border_color,
+            "textBorderWidth": text_border_width,
+            "textShadowColor": text_shadow_color,
+            "textShadowBlur": text_shadow_blur,
+            "textShadowOffsetX": text_shadow_offset_x,
+            "textShadowOffsetY": text_shadow_offset_y,
+            "overflow": overflow,
             "rich": rich,
+            "valueAnimation": is_value_animation,
         }
 
 
@@ -194,6 +242,7 @@ class MarkPointOpts(BasicOpts):
         symbol: Optional[str] = None,
         symbol_size: Union[None, Numeric] = None,
         label_opts: LabelOpts = LabelOpts(position="inside", color="#fff"),
+        animation_opts: Union[AnimationOpts, dict, None] = None,
     ):
         self.opts: dict = {
             "symbol": symbol,
@@ -201,6 +250,9 @@ class MarkPointOpts(BasicOpts):
             "label": label_opts,
             "data": data,
         }
+
+        if animation_opts:
+            self.opts.update(**animation_opts.opts)
 
 
 class MarkLineItem(BasicOpts):
@@ -215,6 +267,7 @@ class MarkLineItem(BasicOpts):
         value_index: Optional[Numeric] = None,
         value_dim: Optional[str] = None,
         coord: Optional[Sequence] = None,
+        linestyle_opts: Union[LineStyleOpts, dict, None] = None,
         symbol: Optional[str] = None,
         symbol_size: Optional[Numeric] = None,
     ):
@@ -227,6 +280,7 @@ class MarkLineItem(BasicOpts):
             "x": xcoord,
             "yAxis": y,
             "y": ycoord,
+            "lineStyle": linestyle_opts,
             "coord": coord,
             "symbol": symbol,
             "symbolSize": symbol_size,
@@ -243,6 +297,7 @@ class MarkLineOpts(BasicOpts):
         precision: int = 2,
         label_opts: LabelOpts = LabelOpts(),
         linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        animation_opts: Union[AnimationOpts, dict, None] = None,
     ):
         self.opts: dict = {
             "silent": is_silent,
@@ -253,6 +308,9 @@ class MarkLineOpts(BasicOpts):
             "lineStyle": linestyle_opts,
             "data": data,
         }
+
+        if animation_opts:
+            self.opts.update(**animation_opts.opts)
 
 
 class MarkAreaItem(BasicOpts):
@@ -295,6 +353,7 @@ class MarkAreaOpts(BasicOpts):
         label_opts: LabelOpts = LabelOpts(),
         data: Sequence[Union[MarkAreaItem, Sequence, dict]] = None,
         itemstyle_opts: ItemStyleOpts = None,
+        animation_opts: Union[AnimationOpts, dict, None] = None,
     ):
         self.opts: dict = {
             "silent": is_silent,
@@ -302,6 +361,9 @@ class MarkAreaOpts(BasicOpts):
             "data": data,
             "itemStyle": itemstyle_opts,
         }
+
+        if animation_opts:
+            self.opts.update(**animation_opts.opts)
 
 
 class EffectOpts(BasicOpts):
@@ -351,7 +413,7 @@ class Lines3DEffectOpts(BasicOpts):
 
 
 class AreaStyleOpts(BasicOpts):
-    def __init__(self, opacity: Optional[Numeric] = 0, color: Optional[str] = None):
+    def __init__(self, opacity: Optional[Numeric] = 0, color: Optional[JSFunc] = None):
         self.opts: dict = {"opacity": opacity, "color": color}
 
 
@@ -415,4 +477,38 @@ class MinorSplitLineOpts(BasicOpts):
             "type": type_,
             "opacity": opacity,
             "lineStyle": linestyle_opts,
+        }
+
+
+class GraphGLForceAtlas2Opts(BasicOpts):
+    def __init__(
+        self,
+        is_gpu: bool = True,
+        steps: Numeric = 1,
+        stop_threshold: Numeric = 1,
+        is_barnes_hut_optimize: Optional[bool] = None,
+        is_repulsion_by_degree: bool = True,
+        is_lin_log_mode: bool = False,
+        gravity: Numeric = 1,
+        gravity_center: Optional[Sequence] = None,
+        scaling: Optional[Numeric] = None,
+        edge_weight_influence: Numeric = 1,
+        edge_weight: Union[Sequence, Numeric] = None,
+        node_weight: Union[Sequence, Numeric] = None,
+        is_prevent_overlap: bool = False,
+    ):
+        self.opts: dict = {
+            "GPU": is_gpu,
+            "steps": steps,
+            "stopThreshold": stop_threshold,
+            "barnesHutOptimize": is_barnes_hut_optimize,
+            "repulsionByDegree": is_repulsion_by_degree,
+            "linLogMode": is_lin_log_mode,
+            "gravity": gravity,
+            "gravityCenter": gravity_center,
+            "scaling": scaling,
+            "edgeWeightInfluence": edge_weight_influence,
+            "edgeWeight": edge_weight,
+            "nodeWeight": node_weight,
+            "preventOverlap": is_prevent_overlap,
         }

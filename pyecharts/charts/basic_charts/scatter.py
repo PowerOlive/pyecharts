@@ -38,7 +38,6 @@ class Scatter(RectChart):
         series_name: str,
         y_axis: types.Sequence[types.Union[opts.ScatterItem, dict]],
         *,
-        is_selected: bool = True,
         xaxis_index: types.Optional[types.Numeric] = None,
         yaxis_index: types.Optional[types.Numeric] = None,
         color: types.Optional[str] = None,
@@ -51,10 +50,11 @@ class Scatter(RectChart):
         markarea_opts: types.MarkArea = None,
         tooltip_opts: types.Tooltip = None,
         itemstyle_opts: types.ItemStyle = None,
+        emphasis_opts: types.Emphasis = None,
         encode: types.Union[types.JSFunc, dict, None] = None,
     ):
         self._append_color(color)
-        self._append_legend(series_name, is_selected)
+        self._append_legend(series_name)
 
         data = self._parse_data(y_axis=y_axis)
 
@@ -74,6 +74,7 @@ class Scatter(RectChart):
                 "markArea": markarea_opts,
                 "tooltip": tooltip_opts,
                 "itemStyle": itemstyle_opts,
+                "emphasis": emphasis_opts,
                 "encode": encode,
             }
         )

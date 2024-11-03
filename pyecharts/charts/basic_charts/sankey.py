@@ -19,7 +19,6 @@ class Sankey(Chart):
         nodes: types.Sequence,
         links: types.Sequence,
         *,
-        is_selected: bool = True,
         pos_left: types.Union[str, types.Numeric] = "5%",
         pos_top: types.Union[str, types.Numeric] = "5%",
         pos_right: types.Union[str, types.Numeric] = "20%",
@@ -27,20 +26,18 @@ class Sankey(Chart):
         node_width: types.Numeric = 20,
         node_gap: types.Numeric = 8,
         node_align: str = "justify",
-        layout_iterations: types.Numeric = 32,
+        layout_iterations: types.Optional[types.Numeric] = None,
         orient: str = "horizontal",
         is_draggable: bool = True,
-        focus_node_adjacency: types.Union[bool, str] = False,
+        edge_label_opt: types.Label = None,
         levels: types.SankeyLevel = None,
         label_opts: types.Label = opts.LabelOpts(),
         linestyle_opt: types.LineStyle = opts.LineStyleOpts(),
         tooltip_opts: types.Tooltip = None,
         itemstyle_opts: types.ItemStyle = None,
+        emphasis_opts: types.Emphasis = None,
     ):
-        if layout_iterations < 32:
-            layout_iterations = 32
-
-        self._append_legend(series_name, is_selected)
+        self._append_legend(series_name)
         self.options.get("series").append(
             {
                 "type": ChartType.SANKEY,
@@ -54,15 +51,16 @@ class Sankey(Chart):
                 "nodeWidth": node_width,
                 "nodeGap": node_gap,
                 "nodeAlign": node_align,
-                "layoutIteration": layout_iterations,
+                "layoutIterations": layout_iterations,
                 "orient": orient,
                 "draggable": is_draggable,
-                "focusNodeAdjacency": focus_node_adjacency,
+                "edgeLabel": edge_label_opt,
                 "levels": levels,
                 "label": label_opts,
                 "lineStyle": linestyle_opt,
                 "tooltip": tooltip_opts,
                 "itemStyle": itemstyle_opts,
+                "emphasis": emphasis_opts,
             }
         )
         return self
