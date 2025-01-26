@@ -54,16 +54,24 @@ class Page(CompositeMixin):
         page_title: str = CurrentConfig.PAGE_TITLE,
         js_host: str = "",
         interval: int = 1,
+        is_remove_br: bool = False,
+        is_embed_js: bool = False,
+        page_border_color: str = "",
         layout: types.Union[PageLayoutOpts, dict] = PageLayoutOpts(),
     ):
         self.js_host: str = js_host or CurrentConfig.ONLINE_HOST
         self.page_title = page_title
         self.page_interval = interval
+        self.remove_br = is_remove_br
+        self.page_border_color = page_border_color
         self.layout = self._assembly_layout(layout)
         self.js_functions: utils.OrderedSet = utils.OrderedSet()
         self.js_dependencies = utils.OrderedSet()
         self.download_button: bool = False
         self._charts: list = []
+
+        self.render_options: dict = {"embed_js": is_embed_js}
+        self._render_cache: dict = dict()
 
     def add(self, *charts):
         for c in charts:
@@ -123,6 +131,12 @@ class Page(CompositeMixin):
             )
             self.css_libs = [self.js_host + link for link in ("jquery-ui.css",)]
             self.layout = ""
+
+        self._render_cache.clear()
+        if self.render_options.get("embed_js"):
+            self._render_cache[
+                "javascript"
+            ] = self.load_javascript().load_javascript_contents()
 
     def render(
         self,

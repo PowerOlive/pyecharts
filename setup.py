@@ -57,7 +57,7 @@ class UploadCommand(Command):
             pass
 
         self.status("Building Source and Wheel distribution…")
-        os.system("{0} setup.py bdist_wheel".format(sys.executable))
+        os.system("{0} setup.py sdist bdist_wheel".format(sys.executable))
 
         self.status("Uploading the package to PyPI via Twine…")
         os.system("twine upload dist/*")
@@ -83,7 +83,7 @@ setup(
     zip_safe=False,
     include_package_data=True,
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
@@ -92,6 +92,11 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Topic :: Software Development :: Libraries",
     ],
     cmdclass={"upload": UploadCommand},

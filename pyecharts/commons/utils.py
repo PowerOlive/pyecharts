@@ -32,6 +32,9 @@ def produce_require_dict(js_dependencies, js_host) -> dict:
         if name.startswith("https://api.map.baidu.com"):
             confs.append("'baidu_map_api{}':'{}'".format(len(name), name))
             libraries.append("'baidu_map_api{}'".format(len(name)))
+        if name.startswith("https://webapi.amap.com"):
+            confs.append("'amap_map_api{}':'{}'".format(len(name), name))
+            libraries.append("'amap_map_api{}'".format(len(name)))
         if name in FILENAMES:
             f, _ = FILENAMES[name]
             confs.append("'{}':'{}{}'".format(name, js_host, f))
@@ -54,14 +57,14 @@ def replace_placeholder_with_quotes(html: str) -> str:
     return re.sub("--x_x--0_0--", "", html)
 
 
-def _flat(obj):
-    if hasattr(obj, "js_dependencies"):
-        return list(obj.js_dependencies)
-
-    if isinstance(obj, (list, tuple, set)):
-        return obj
-
-    return (obj,)  # tuple
+# def _flat(obj):
+#     if hasattr(obj, "js_dependencies"):
+#         return list(obj.js_dependencies)
+#
+#     if isinstance(obj, (list, tuple, set)):
+#         return obj
+#
+#     return (obj,)  # tuple
 
 
 def _expand(dict_generator):
@@ -76,6 +79,13 @@ def _clean_dict(mydict):
 
             elif isinstance(value, (list, tuple, set)):
                 value = list(_clean_array(value))
+
+            # Not elegant, but effective and less code-intrusive.
+            elif type(value).__name__ in ["ndarray", "Series"]:
+                raise ValueError(
+                    "Can't use non-native data structures "
+                    "as axis data to render chart"
+                )
 
             elif isinstance(value, str) and not value:
                 # delete key with empty string

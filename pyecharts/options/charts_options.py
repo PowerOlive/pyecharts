@@ -17,293 +17,6 @@ from .series_options import (
 )
 
 
-# Data Item
-class BarItem(BasicOpts):
-    def __init__(
-        self,
-        name: Union[int, str],
-        value: Numeric,
-        *,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class BoxplotItem(BasicOpts):
-    def __init__(
-        self,
-        name: Union[int, str],
-        value: Sequence,
-        *,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class CandleStickItem(BasicOpts):
-    def __init__(
-        self,
-        name: Union[str, int],
-        value: Sequence,
-        *,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class EffectScatterItem(BasicOpts):
-    def __init__(
-        self,
-        name: Union[str, Numeric],
-        value: Union[str, Numeric],
-        *,
-        symbol: Optional[str] = None,
-        symbol_size: Union[Sequence[Numeric], Numeric] = None,
-        symbol_rotate: Optional[Numeric] = None,
-        symbol_keep_aspect: bool = False,
-        symbol_offset: Optional[Sequence] = None,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "symbol": symbol,
-            "symbolSize": symbol_size,
-            "symbolRotate": symbol_rotate,
-            "symbolKeepAspect": symbol_keep_aspect,
-            "symbolOffset": symbol_offset,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class FunnelItem(BasicOpts):
-    def __init__(
-        self,
-        name: Union[str, int],
-        value: Union[Sequence, str, Numeric],
-        *,
-        is_show_label_line: Optional[bool] = None,
-        label_line_width: Optional[int] = None,
-        label_line_linestyle_opts: Union[LineStyleOpts, dict, None] = None,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "labelLine": {
-                "show": is_show_label_line,
-                "length": label_line_width,
-                "lineStyle": label_line_linestyle_opts,
-            },
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class LineItem(BasicOpts):
-    def __init__(
-        self,
-        name: Union[str, Numeric] = None,
-        value: Union[str, Numeric] = None,
-        *,
-        symbol: Optional[str] = "circle",
-        symbol_size: Numeric = 4,
-        symbol_rotate: Optional[Numeric] = None,
-        symbol_keep_aspect: bool = False,
-        symbol_offset: Optional[Sequence] = None,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "symbol": symbol,
-            "symbolSize": symbol_size,
-            "symbolRotate": symbol_rotate,
-            "symbolKeepAspect": symbol_keep_aspect,
-            "symbolOffset": symbol_offset,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class MapItem(BasicOpts):
-    def __init__(
-        self,
-        name: Optional[str] = None,
-        value: Union[Sequence, Numeric, str] = None,
-        is_selected: bool = False,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "selected": is_selected,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class PieItem(BasicOpts):
-    def __init__(
-        self,
-        name: Optional[str] = None,
-        value: Optional[Numeric] = None,
-        is_selected: bool = False,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "selected": is_selected,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class RadarItem(BasicOpts):
-    def __init__(
-        self,
-        name: Optional[str] = None,
-        value: Union[Sequence, Numeric, str] = None,
-        symbol: Optional[str] = None,
-        symbol_size: Union[Sequence[Numeric], Numeric] = None,
-        symbol_rotate: Optional[Numeric] = None,
-        symbol_keep_aspect: bool = False,
-        symbol_offset: Optional[Sequence] = None,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-        linestyle_opts: Union[LineStyleOpts, dict, None] = None,
-        areastyle_opts: Union[AreaStyleOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "symbol": symbol,
-            "symbolSize": symbol_size,
-            "symbolRotate": symbol_rotate,
-            "symbolKeepAspect": symbol_keep_aspect,
-            "symbolOffset": symbol_offset,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-            "lineStyle": linestyle_opts,
-            "areaStyle": areastyle_opts,
-        }
-
-
-class ScatterItem(BasicOpts):
-    def __init__(
-        self,
-        name: Union[str, Numeric] = None,
-        value: Union[str, Numeric] = None,
-        symbol: Optional[str] = None,
-        symbol_size: Union[Sequence[Numeric], Numeric] = None,
-        symbol_rotate: Optional[Numeric] = None,
-        symbol_keep_aspect: bool = False,
-        symbol_offset: Optional[Sequence] = None,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        tooltip_opts: Union[TooltipOpts, dict, None] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "symbol": symbol,
-            "symbolSize": symbol_size,
-            "symbolRotate": symbol_rotate,
-            "symbolKeepAspect": symbol_keep_aspect,
-            "symbolOffset": symbol_offset,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "tooltip": tooltip_opts,
-        }
-
-
-class SunburstItem(BasicOpts):
-    def __init__(
-        self,
-        value: Optional[Numeric] = None,
-        name: Optional[str] = None,
-        link: Optional[str] = None,
-        target: Optional[str] = "blank",
-        label_opts: Union[LabelOpts, dict, None] = None,
-        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
-        children: Optional[Sequence] = None,
-    ):
-        self.opts: dict = {
-            "value": value,
-            "name": name,
-            "link": link,
-            "target": target,
-            "label": label_opts,
-            "itemStyle": itemstyle_opts,
-            "children": children,
-        }
-
-
-class ThemeRiverItem(BasicOpts):
-    def __init__(
-        self,
-        date: Optional[str] = None,
-        value: Optional[Numeric] = None,
-        name: Optional[str] = None,
-    ):
-        self.opts: dict = {"date": date, "value": value, "name": name}
-
-
-class TreeItem(BasicOpts):
-    def __init__(
-        self,
-        name: Optional[str] = None,
-        value: Optional[Numeric] = None,
-        label_opts: Union[LabelOpts, dict, None] = None,
-        children: Optional[Sequence] = None,
-    ):
-        self.opts: dict = {
-            "name": name,
-            "value": value,
-            "children": children,
-            "label": label_opts,
-        }
-
-
 # Chart Options
 class GraphNode(BasicOpts):
     def __init__(
@@ -316,7 +29,18 @@ class GraphNode(BasicOpts):
         category: Optional[int] = None,
         symbol: Optional[str] = None,
         symbol_size: Union[Numeric, Sequence, None] = None,
+        symbol_rotate: Optional[int] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
         label_opts: Union[LabelOpts, dict, None] = None,
+        is_disabled_emphasis: Optional[bool] = None,
+        emphasis_itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        emphasis_label_opts: Union[LabelOpts, dict, None] = None,
+        blur_itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        blur_label_opts: Union[LabelOpts, dict, None] = None,
+        is_disabled_select: Optional[bool] = None,
+        select_itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        select_label_opts: Union[LabelOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
     ):
         self.opts: dict = {
             "name": name,
@@ -327,7 +51,24 @@ class GraphNode(BasicOpts):
             "category": category,
             "symbol": symbol,
             "symbolSize": symbol_size,
+            "symbolRotate": symbol_rotate,
+            "itemStyle": itemstyle_opts,
             "label": label_opts,
+            "emphasis": {
+                "disabled": is_disabled_emphasis,
+                "itemStyle": emphasis_itemstyle_opts,
+                "label": emphasis_label_opts,
+            },
+            "blur": {
+                "itemStyle": blur_itemstyle_opts,
+                "label": blur_label_opts,
+            },
+            "select": {
+                "disabled": is_disabled_select,
+                "itemStyle": select_itemstyle_opts,
+                "label": select_label_opts,
+            },
+            "tooltip": tooltip_opts,
         }
 
 
@@ -341,6 +82,15 @@ class GraphLink(BasicOpts):
         symbol_size: Union[Numeric, Sequence, None] = None,
         linestyle_opts: Union[LineStyleOpts, dict, None] = None,
         label_opts: Union[LabelOpts, dict, None] = None,
+        is_disabled_emphasis: Optional[bool] = None,
+        emphasis_linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        emphasis_label_opts: Union[LabelOpts, dict, None] = None,
+        blur_linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        blur_label_opts: Union[LabelOpts, dict, None] = None,
+        is_disabled_select: Optional[bool] = None,
+        select_linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        select_label_opts: Union[LabelOpts, dict, None] = None,
+        is_ignore_force_layout: bool = False
     ):
         self.opts: dict = {
             "source": source,
@@ -350,6 +100,21 @@ class GraphLink(BasicOpts):
             "symbolSize": symbol_size,
             "lineStyle": linestyle_opts,
             "label": label_opts,
+            "emphasis": {
+                "disabled": is_disabled_emphasis,
+                "lineStyle": emphasis_linestyle_opts,
+                "label": emphasis_label_opts,
+            },
+            "blur": {
+                "lineStyle": blur_linestyle_opts,
+                "label": blur_label_opts,
+            },
+            "select": {
+                "disabled": is_disabled_select,
+                "lineStyle": select_linestyle_opts,
+                "label": select_label_opts,
+            },
+            "ignoreForceLayout": is_ignore_force_layout,
         }
 
 
@@ -632,6 +397,7 @@ class GraphicTextStyleOpts(BaseGraphic):
         pos_x: Numeric = 0,
         pos_y: Numeric = 0,
         font: Optional[str] = None,
+        font_size: Optional[Numeric] = 0,
         text_align: str = "left",
         text_vertical_align: Optional[str] = None,
         graphic_basicstyle_opts: Union[GraphicBasicStyleOpts, dict, None] = None,
@@ -641,6 +407,7 @@ class GraphicTextStyleOpts(BaseGraphic):
             "x": pos_x,
             "y": pos_y,
             "font": font,
+            "fontSize": font_size,
             "textAlign": text_align,
             "textVerticalAlign": text_vertical_align,
         }
@@ -835,6 +602,7 @@ class TreeMapItemStyleOpts(BasicOpts):
 class TreeMapLevelsOpts(BasicOpts):
     def __init__(
         self,
+        color: Union[str, Sequence] = None,
         color_alpha: Union[Numeric, Sequence] = None,
         color_saturation: Union[Numeric, Sequence] = None,
         color_mapping_by: str = "index",
@@ -843,6 +611,7 @@ class TreeMapLevelsOpts(BasicOpts):
         upper_label_opts: Union[LabelOpts, dict, None] = None,
     ):
         self.opts: dict = {
+            "color": color,
             "colorAlpha": color_alpha,
             "colorSaturation": color_saturation,
             "colorMappingBy": color_mapping_by,
@@ -1066,6 +835,30 @@ class Map3DViewControlOpts(BasicOpts):
         }
 
 
+class GlobeLayersOpts(BasicOpts):
+    def __init__(
+        self,
+        is_show: bool = True,
+        type_: str = "overlay",
+        name: Optional[str] = None,
+        blend_to: str = "albedo",
+        intensity: Numeric = 1,
+        shading: str = "lambert",
+        distance: Optional[Numeric] = None,
+        texture: Union[JSFunc, None] = None,
+    ):
+        self.opts: dict = {
+            "show": is_show,
+            "type": type_,
+            "name": name,
+            "blendTo": blend_to,
+            "intensity": intensity,
+            "shading": shading,
+            "distance": distance,
+            "texture": texture,
+        }
+
+
 class BarBackgroundStyleOpts(BasicOpts):
     def __init__(
         self,
@@ -1073,7 +866,7 @@ class BarBackgroundStyleOpts(BasicOpts):
         border_color: str = "#000",
         border_width: Numeric = 0,
         border_type: str = "solid",
-        bar_border_radius: Union[Numeric, Sequence] = 0,
+        border_radius: Union[Numeric, Sequence] = 0,
         shadow_blur: Optional[Numeric] = None,
         shadow_color: Optional[str] = None,
         shadow_offset_x: Numeric = 0,
@@ -1085,7 +878,7 @@ class BarBackgroundStyleOpts(BasicOpts):
             "borderColor": border_color,
             "borderWidth": border_width,
             "borderType": border_type,
-            "barBorderRadius": bar_border_radius,
+            "borderRadius": border_radius,
             "shadowBlur": shadow_blur,
             "shadowColor": shadow_color,
             "shadowOffsetX": shadow_offset_x,
@@ -1113,6 +906,9 @@ class GaugeTitleOpts(BasicOpts):
         shadow_blur: Optional[Numeric] = 0,
         shadow_offset_x: Numeric = 0,
         shadow_offset_y: Numeric = 0,
+        overflow: Optional[str] = "none",
+        rich: Optional[dict] = None,
+        is_value_animation: bool = True,
     ):
         if offset_center is None:
             offset_center = [0, "-40%"]
@@ -1133,6 +929,9 @@ class GaugeTitleOpts(BasicOpts):
             "shadowBlur": shadow_blur,
             "shadowOffsetX": shadow_offset_x,
             "shadowOffsetY": shadow_offset_y,
+            "overflow": overflow,
+            "rich": rich,
+            "valueAnimation": is_value_animation,
         }
 
 
@@ -1145,7 +944,7 @@ class GaugeDetailOpts(BasicOpts):
         border_color: str = "transparent",
         offset_center: Sequence = None,
         formatter: Optional[JSFunc] = None,
-        color: str = "auto",
+        color: str = "#464646",
         font_style: str = "normal",
         font_weight: str = "normal",
         font_family: str = "sans-serif",
@@ -1156,6 +955,9 @@ class GaugeDetailOpts(BasicOpts):
         shadow_blur: Optional[Numeric] = 0,
         shadow_offset_x: Numeric = 0,
         shadow_offset_y: Numeric = 0,
+        overflow: Optional[str] = "none",
+        rich: Optional[dict] = None,
+        is_value_animation: bool = True,
     ):
         if offset_center is None:
             offset_center = [0, "-40%"]
@@ -1177,6 +979,29 @@ class GaugeDetailOpts(BasicOpts):
             "shadowBlur": shadow_blur,
             "shadowOffsetX": shadow_offset_x,
             "shadowOffsetY": shadow_offset_y,
+            "overflow": overflow,
+            "rich": rich,
+            "valueAnimation": is_value_animation,
+        }
+
+
+class GaugeProgressOpts(BasicOpts):
+    def __init__(
+        self,
+        is_show: bool = False,
+        is_overlap: bool = True,
+        width: Numeric = 10,
+        is_round_cap: bool = False,
+        is_clip: bool = False,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "show": is_show,
+            "overlap": is_overlap,
+            "width": width,
+            "roundCap": is_round_cap,
+            "clip": is_clip,
+            "itemStyle": itemstyle_opts,
         }
 
 
@@ -1186,25 +1011,87 @@ class GaugePointerOpts(BasicOpts):
         is_show: bool = True,
         length: Union[str, Numeric] = "80%",
         width: Numeric = 8,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
     ):
-        self.opts: dict = {"show": is_show, "length": length, "width": width}
+        self.opts: dict = {
+            "show": is_show,
+            "length": length,
+            "width": width,
+            "itemStyle": itemstyle_opts,
+        }
+
+
+class GaugeAnchorOpts(BasicOpts):
+    def __init__(
+        self,
+        is_show: bool = True,
+        is_show_above: bool = False,
+        size: Numeric = 6,
+        icon: str = "circle",
+        offset_center: Optional[Sequence] = None,
+        is_keep_aspect: bool = False,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+    ):
+        if offset_center is None:
+            offset_center = [0, 0]
+        self.opts: dict = {
+            "show": is_show,
+            "showAbove": is_show_above,
+            "size": size,
+            "icon": icon,
+            "offsetCenter": offset_center,
+            "keepAspect": is_keep_aspect,
+            "itemStyle": itemstyle_opts,
+        }
 
 
 class PieLabelLineOpts(BasicOpts):
     def __init__(
         self,
         is_show: bool = True,
-        length: Numeric = None,
-        length_2: Numeric = None,
+        is_show_above: bool = False,
+        length: Numeric = 15,
+        length_2: Numeric = 15,
         smooth: Union[bool, Numeric] = False,
+        min_turn_angle: Numeric = 90,
         linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        max_surface_angle: Numeric = 90,
     ):
         self.opts: dict = {
             "show": is_show,
+            "showAbove": is_show_above,
             "length": length,
             "length2": length_2,
             "smooth": smooth,
+            "minTurnAngle": min_turn_angle,
             "lineStyle": linestyle_opts,
+            "maxSurfaceAngle": max_surface_angle,
+        }
+
+
+class PieEmptyCircleStyle(BasicOpts):
+    def __init__(
+        self,
+        color: str = "lightgray",
+        border_color: str = "#000",
+        border_width: Numeric = 0,
+        border_type: str = "solid",
+        border_dash_offset: Numeric = 0,
+        border_cap: str = "butt",
+        border_join: str = "bevel",
+        border_miter_limit: Numeric = 10,
+        opacity: Numeric = 1,
+    ):
+        self.opts: dict = {
+            "color": color,
+            "borderColor": border_color,
+            "borderWidth": border_width,
+            "borderType": border_type,
+            "borderDashOffset": border_dash_offset,
+            "borderCap": border_cap,
+            "borderJoin": border_join,
+            "borderMiterLimit": border_miter_limit,
+            "opacity": opacity,
         }
 
 
@@ -1274,4 +1161,507 @@ class TimelineControlStyle(BasicOpts):
             "color": color,
             "borderColor": border_color,
             "borderWidth": border_width,
+        }
+
+
+class TabChartGlobalOpts(BasicOpts):
+    def __init__(
+        self,
+        is_enable: bool = False,
+        tab_base_css: Optional[dict] = None,
+        tab_button_css: Optional[dict] = None,
+        tab_button_hover_css: Optional[dict] = None,
+        tab_button_active_css: Optional[dict] = None,
+    ):
+        self.opts: dict = {
+            "enable": is_enable,
+            "base": tab_base_css,
+            "button_base": tab_button_css,
+            "button_hover": tab_button_hover_css,
+            "button_active": tab_button_active_css,
+        }
+
+
+class GraphGLNode(BasicOpts):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        x: Optional[Numeric] = None,
+        y: Optional[Numeric] = None,
+        value: Union[str, Numeric, Sequence, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "x": x,
+            "y": y,
+            "value": value,
+            "itemStyle": itemstyle_opts,
+        }
+
+
+class GraphGLLink(BasicOpts):
+    def __init__(
+        self,
+        source: Union[str, int, None] = None,
+        target: Union[str, int, None] = None,
+        value: Optional[Numeric] = None,
+        linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "source": source,
+            "target": target,
+            "value": value,
+            "lineStyle": linestyle_opts,
+        }
+
+
+class GeoRegionsOpts(BasicOpts):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        is_selected: bool = False,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        emphasis_itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        emphasis_label_opts: Union[LabelOpts, dict, None] = None,
+        select_itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        select_label_opts: Union[LabelOpts, dict, None] = None,
+        blur_itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        blur_label_opts: Union[LabelOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+        is_silent: bool = False,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "selected": is_selected,
+            "itemStyle": itemstyle_opts,
+            "label": label_opts,
+            "emphasis": {
+                "itemStyle": emphasis_itemstyle_opts,
+                "label": emphasis_label_opts,
+            },
+            "select": {
+                "itemStyle": select_itemstyle_opts,
+                "label": select_label_opts,
+            },
+            "blur": {
+                "itemStyle": blur_itemstyle_opts,
+                "label": blur_label_opts,
+            },
+            "tooltip": tooltip_opts,
+            "silent": is_silent,
+        }
+
+
+class SunburstLabelLineOpts(BasicOpts):
+    def __init__(
+        self,
+        is_show: Optional[bool] = None,
+        is_show_above: Optional[bool] = None,
+        length_2: Optional[Numeric] = None,
+        smooth: Union[bool, Numeric] = False,
+        min_turn_angle: Optional[Numeric] = None,
+        linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "show": is_show,
+            "showAbove": is_show_above,
+            "length2": length_2,
+            "smooth": smooth,
+            "minTurnAngle": min_turn_angle,
+            "lineStyle": linestyle_opts,
+        }
+
+
+class SunburstLabelLayoutOpts(BasicOpts):
+    def __init__(
+        self,
+        is_hide_overlap: Optional[bool] = None,
+        is_move_overlap: Optional[bool] = None,
+        rotate: Optional[Numeric] = None,
+        width: Optional[Numeric] = None,
+        height: Optional[Numeric] = None,
+        align: Optional[str] = None,
+        vertical_align: Optional[str] = None,
+        font_size: Optional[Numeric] = None,
+        is_draggable: Optional[bool] = None,
+    ):
+        self.opts: dict = {
+            "hideOverlap": is_hide_overlap,
+            "moveOverlap": is_move_overlap,
+            "rotate": rotate,
+            "width": width,
+            "height": height,
+            "align": align,
+            "verticalAlign": vertical_align,
+            "fontSize": font_size,
+            "draggable": is_draggable,
+        }
+
+
+class SunburstLevelOpts(BasicOpts):
+    def __init__(
+        self,
+        radius: Optional[Sequence] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        label_line_opts: Union[SunburstLabelLineOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "radius": radius,
+            "label": label_opts,
+            "labelLine": label_line_opts,
+            "itemStyle": itemstyle_opts,
+        }
+
+
+# Data Item
+class BarItem(BasicOpts):
+    def __init__(
+        self,
+        name: Union[int, str, None],
+        value: Numeric,
+        *,
+        group_id: Optional[str] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        is_show_label_line: Optional[bool] = None,
+        label_line_linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        label_line = None
+        if is_show_label_line:
+            label_line = {
+                "show": is_show_label_line,
+                "lineStyle": label_line_linestyle_opts,
+            }
+
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "groupId": group_id,
+            "label": label_opts,
+            "labelLine": label_line,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class BoxplotItem(BasicOpts):
+    def __init__(
+        self,
+        name: Union[int, str],
+        value: Sequence,
+        *,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class CandleStickItem(BasicOpts):
+    def __init__(
+        self,
+        name: Union[str, int],
+        value: Sequence,
+        *,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class EffectScatterItem(BasicOpts):
+    def __init__(
+        self,
+        name: Union[str, Numeric],
+        value: Union[str, Numeric],
+        *,
+        symbol: Optional[str] = None,
+        symbol_size: Union[Sequence[Numeric], Numeric] = None,
+        symbol_rotate: Optional[Numeric] = None,
+        symbol_keep_aspect: bool = False,
+        symbol_offset: Optional[Sequence] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "symbol": symbol,
+            "symbolSize": symbol_size,
+            "symbolRotate": symbol_rotate,
+            "symbolKeepAspect": symbol_keep_aspect,
+            "symbolOffset": symbol_offset,
+            "label": label_opts,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class FunnelItem(BasicOpts):
+    def __init__(
+        self,
+        name: Union[str, int],
+        value: Union[Sequence, str, Numeric],
+        *,
+        is_show_label_line: Optional[bool] = None,
+        label_line_width: Optional[int] = None,
+        label_line_linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "labelLine": {
+                "show": is_show_label_line,
+                "length": label_line_width,
+                "lineStyle": label_line_linestyle_opts,
+            },
+            "label": label_opts,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class LineItem(BasicOpts):
+    def __init__(
+        self,
+        name: Union[str, Numeric] = None,
+        value: Union[str, Numeric] = None,
+        *,
+        symbol: Optional[str] = "circle",
+        symbol_size: Numeric = 4,
+        symbol_rotate: Optional[Numeric] = None,
+        symbol_keep_aspect: bool = False,
+        symbol_offset: Optional[Sequence] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "symbol": symbol,
+            "symbolSize": symbol_size,
+            "symbolRotate": symbol_rotate,
+            "symbolKeepAspect": symbol_keep_aspect,
+            "symbolOffset": symbol_offset,
+            "label": label_opts,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class MapItem(BasicOpts):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        value: Union[Sequence, Numeric, str] = None,
+        group_id: Optional[str] = None,
+        is_selected: bool = False,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "groupId": group_id,
+            "selected": is_selected,
+            "label": label_opts,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class GeoItem(BasicOpts):
+    def __init__(
+        self,
+        longitude: Numeric,
+        latitude: Numeric,
+        name: str,
+        value: Union[Sequence, Numeric, str] = None,
+    ):
+        self.opts: dict = {
+            "longitude": longitude,
+            "latitude": latitude,
+            "name": name,
+            "value": value,
+        }
+
+
+class ParallelItem(BasicOpts):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        value: Optional[Sequence] = None,
+        linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        color: Union[str, dict] = "#000",
+        width: Numeric = 2,
+        type_: str = "solid",
+        dash_offset: Numeric = 0,
+        cap: str = "butt",
+        join: str = "bevel",
+        miter_limit: Optional[Numeric] = None,
+        opacity: Numeric = 0.45,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "lineStyle": linestyle_opts,
+            "color": color,
+            "width": width,
+            "type": type_,
+            "dashOffset": dash_offset,
+            "cap": cap,
+            "join": join,
+            "miterLimit": miter_limit,
+            "opacity": opacity,
+        }
+
+
+class PieItem(BasicOpts):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        value: Optional[Numeric] = None,
+        group_id: Optional[str] = None,
+        is_selected: bool = False,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+        label_line_opts: Union[PieLabelLineOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "groupId": group_id,
+            "selected": is_selected,
+            "label": label_opts,
+            "labelLine": label_line_opts,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class RadarItem(BasicOpts):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        value: Union[Sequence, Numeric, str] = None,
+        symbol: Optional[str] = None,
+        symbol_size: Union[Sequence[Numeric], Numeric] = None,
+        symbol_rotate: Optional[Numeric] = None,
+        symbol_keep_aspect: bool = False,
+        symbol_offset: Optional[Sequence] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+        linestyle_opts: Union[LineStyleOpts, dict, None] = None,
+        areastyle_opts: Union[AreaStyleOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "symbol": symbol,
+            "symbolSize": symbol_size,
+            "symbolRotate": symbol_rotate,
+            "symbolKeepAspect": symbol_keep_aspect,
+            "symbolOffset": symbol_offset,
+            "label": label_opts,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+            "lineStyle": linestyle_opts,
+            "areaStyle": areastyle_opts,
+        }
+
+
+class ScatterItem(BasicOpts):
+    def __init__(
+        self,
+        name: Union[str, Numeric] = None,
+        value: Union[str, Numeric] = None,
+        symbol: Optional[str] = None,
+        symbol_size: Union[Sequence[Numeric], Numeric] = None,
+        symbol_rotate: Optional[Numeric] = None,
+        symbol_keep_aspect: bool = False,
+        symbol_offset: Optional[Sequence] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        tooltip_opts: Union[TooltipOpts, dict, None] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "symbol": symbol,
+            "symbolSize": symbol_size,
+            "symbolRotate": symbol_rotate,
+            "symbolKeepAspect": symbol_keep_aspect,
+            "symbolOffset": symbol_offset,
+            "label": label_opts,
+            "itemStyle": itemstyle_opts,
+            "tooltip": tooltip_opts,
+        }
+
+
+class SunburstItem(BasicOpts):
+    def __init__(
+        self,
+        value: Optional[Numeric] = None,
+        name: Optional[str] = None,
+        link: Optional[str] = None,
+        target: Optional[str] = "blank",
+        label_opts: Union[LabelOpts, dict, None] = None,
+        itemstyle_opts: Union[ItemStyleOpts, dict, None] = None,
+        children: Optional[Sequence] = None,
+    ):
+        self.opts: dict = {
+            "value": value,
+            "name": name,
+            "link": link,
+            "target": target,
+            "label": label_opts,
+            "itemStyle": itemstyle_opts,
+            "children": children,
+        }
+
+
+class ThemeRiverItem(BasicOpts):
+    def __init__(
+        self,
+        date: Optional[str] = None,
+        value: Optional[Numeric] = None,
+        name: Optional[str] = None,
+    ):
+        self.opts: dict = {"date": date, "value": value, "name": name}
+
+
+class TreeItem(BasicOpts):
+    def __init__(
+        self,
+        name: Optional[str] = None,
+        value: Optional[Numeric] = None,
+        label_opts: Union[LabelOpts, dict, None] = None,
+        children: Optional[Sequence] = None,
+    ):
+        self.opts: dict = {
+            "name": name,
+            "value": value,
+            "children": children,
+            "label": label_opts,
         }

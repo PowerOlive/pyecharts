@@ -1,17 +1,24 @@
 import os
-from collections import Iterable
+
+try:
+    from collections.abc import Iterable
+except ImportError:
+    from collections import Iterable
 
 from jinja2 import Environment
 
 from ..commons import utils
 from ..datasets import EXTRA, FILENAMES
-from ..globals import CurrentConfig, NotebookType
+from ..globals import CurrentConfig, NotebookType, RenderSepType
 from ..types import Any, Optional
 from .display import HTML, Javascript
 
 
 def write_utf8_html_file(file_name: str, html_content: str):
-    with open(file_name, "w+", encoding="utf-8") as html_file:
+    with open(file=file_name,
+              mode="w+",
+              encoding="utf-8",
+              newline=RenderSepType.SepType) as html_file:
         html_file.write(html_content)
 
 
@@ -24,20 +31,34 @@ class RenderEngine:
         if not chart.js_host:
             chart.js_host = CurrentConfig.ONLINE_HOST
         links = []
+        css_links = []
         for dep in chart.js_dependencies.items:
             # TODO: if?
             if dep.startswith("https://api.map.baidu.com"):
                 links.append(dep)
+            if dep.startswith("https://webapi.amap.com"):
+                links.append(dep)
+            if dep.startswith("https://maps.googleapis.com"):
+                links.append(dep)
             if dep in FILENAMES:
                 f, ext = FILENAMES[dep]
-                links.append("{}{}.{}".format(chart.js_host, f, ext))
+                _link = "{}{}.{}".format(chart.js_host, f, ext)
+                if ext == "css":
+                    css_links.append(_link)
+                else:
+                    links.append(_link)
             else:
                 for url, files in EXTRA.items():
                     if dep in files:
                         f, ext = files[dep]
-                        links.append("{}{}.{}".format(url, f, ext))
+                        _link = "{}{}.{}".format(url, f, ext)
+                        if ext == "css":
+                            css_links.append(_link)
+                        else:
+                            links.append(_link)
                         break
         chart.dependencies = links
+        chart.css_libs = css_links
         return chart
 
     def render_chart_to_file(self, template_name: str, chart: Any, path: str, **kwargs):

@@ -12,8 +12,12 @@ class Polar(Chart):
     Polar coordinates can be used for scatter and polyline graphs.
     """
 
-    def __init__(self, init_opts: types.Init = opts.InitOpts()):
-        super().__init__(init_opts=init_opts)
+    def __init__(
+        self,
+        init_opts: types.Init = opts.InitOpts(),
+        render_opts: types.RenderInit = opts.RenderOpts(),
+    ):
+        super().__init__(init_opts=init_opts, render_opts=render_opts)
         self.add_schema()
 
     def add_schema(
@@ -33,19 +37,20 @@ class Polar(Chart):
         series_name: str,
         data: types.Sequence,
         *,
-        is_selected: bool = True,
         type_: str = "line",
         symbol: types.Optional[str] = None,
         symbol_size: types.Numeric = 4,
         stack: types.Optional[str] = None,
+        center: types.Optional[types.Sequence] = None,
         label_opts: types.Label = opts.LabelOpts(is_show=False),
         areastyle_opts: types.AreaStyle = opts.AreaStyleOpts(),
         effect_opts: types.Effect = opts.EffectOpts(),
         tooltip_opts: types.Tooltip = None,
         itemstyle_opts: types.ItemStyle = None,
+        emphasis_opts: types.Emphasis = None,
     ):
-        self._append_legend(series_name, is_selected)
-        self.options.update(polar={})
+        self._append_legend(series_name)
+        self.options.update(polar={"center": center if center else ["50%", "50%"]})
 
         if type_ in (ChartType.SCATTER, ChartType.LINE, ChartType.BAR):
             self.options.get("series").append(
@@ -61,6 +66,7 @@ class Polar(Chart):
                     "areaStyle": areastyle_opts,
                     "tooltip": tooltip_opts,
                     "itemStyle": itemstyle_opts,
+                    "emphasis": emphasis_opts,
                 }
             )
 
@@ -78,6 +84,7 @@ class Polar(Chart):
                     "label": label_opts,
                     "tooltip": tooltip_opts,
                     "itemStyle": itemstyle_opts,
+                    "emphasis": emphasis_opts,
                 }
             )
 
